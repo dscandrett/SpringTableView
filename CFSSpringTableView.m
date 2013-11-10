@@ -65,10 +65,10 @@ static CGFloat const kSpringTableViewDefaultResistance = 0.001f;
                 float resistedScroll = scrollDelta * touchDistance * resistanceFactor;
                 float simpleScroll = scrollDelta;
                 
-                float actualScroll = MIN(abs(simpleScroll), abs(resistedScroll));
+                float actualScroll = MIN(fabsf(simpleScroll), fabsf(resistedScroll));
                 if (simpleScroll < 0)
                 {
-                    actualScroll = abs(actualScroll);
+                    actualScroll = fabsf(actualScroll);
                 }
                 
                 center.y += actualScroll;
