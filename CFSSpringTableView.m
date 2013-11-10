@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Christian Sampaio. All rights reserved.
 //
 
-#import "SpringTableView.h"
+#import "CFSSpringTableView.h"
 
-@interface SpringTableView()
+@interface CFSSpringTableView()
 
 @property (nonatomic, assign) CGPoint lastContentOffset;
 @property (nonatomic, strong) UIDynamicAnimator *dynamicAnimator;
@@ -23,7 +23,7 @@ static CGFloat const kSpringTableViewDefaultDamping = 0.7f;
 static CGFloat const kSpringTableViewDefaultFrequency = 0.7f;
 static CGFloat const kSpringTableViewDefaultResistance = 0.001f;
 
-@implementation SpringTableView
+@implementation CFSSpringTableView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -81,7 +81,7 @@ static CGFloat const kSpringTableViewDefaultResistance = 0.001f;
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)prepareCellForShow:(UITableViewCell *)cell
 {
     NSNumber *key = @([cell hash]);
     UIAttachmentBehavior *springBehavior = self.behaviors[key];
@@ -96,6 +96,8 @@ static CGFloat const kSpringTableViewDefaultResistance = 0.001f;
     springBehavior.frequency = self.hasAssignedFrequency ? self.springFrequency : kSpringTableViewDefaultFrequency;
     [self.dynamicAnimator addBehavior:springBehavior];
     self.behaviors[key] = springBehavior;
+    
+    self.lastContentOffset = self.contentOffset;
 }
 
 - (void)reloadData

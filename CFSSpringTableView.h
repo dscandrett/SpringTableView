@@ -14,7 +14,7 @@
  *  It uses UIDynamics classes, so you can use only if your project
  *  does NOT support iOS version < 7.0
  */
-NS_CLASS_AVAILABLE_IOS(7_0) @interface SpringTableView : UITableView
+NS_CLASS_AVAILABLE_IOS(7_0) @interface CFSSpringTableView : UITableView
 
 /**
  *  The damping factor to the spring effect on the cells.
@@ -36,5 +36,13 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SpringTableView : UITableView
  *  Default value is 0.001f
  */
 @property (nonatomic, assign) CGFloat springResistance;
+
+/**
+ *  This method must be called when you call 
+ *  tableView:willDisplayCell:forRowAtIndexPath: on your table view delegate
+ *  It is necessary in order to prepare the cell to behave with the spring effect
+ *  and you can still use your delegate as usual
+ */
+- (void)prepareCellForShow:(UITableViewCell *)cell;
 
 @end
